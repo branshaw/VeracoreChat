@@ -10,7 +10,7 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 app = FastAPI()
-app.mount("/static", StaticFiles(directory="veracore_starter/static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="veracore_starter/templates")
 
 @app.get("/", response_class=HTMLResponse)
