@@ -24,7 +24,7 @@ async def chat(request: Request):
     user_input = data.get("message")
 
     response = client.chat.completions.create(
-        model="gpt-4o",  # you can change to gpt-4-turbo if you want
+        model="gpt-4o",  # or gpt-4-turbo if you want
         messages=[
             {"role": "system", "content": "You are Vera, a thoughtful AI who tracks ideas, tasks, and agents for Bill."},
             {"role": "user", "content": user_input}
