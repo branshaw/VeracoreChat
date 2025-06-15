@@ -2,11 +2,13 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-import openai
+from openai import OpenAI
 import os
 from dotenv import load_dotenv
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+load_dotenv()
+
+client = OpenAI()
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -21,12 +23,12 @@ async def chat(request: Request):
     data = await request.json()
     user_input = data.get("message")
 
-    response = openai.ChatCompletion.create(
-        model="gpt-4",
+    response = client.chat.completions.create(
+        model="gpt-4o",  # you can change to gpt-4-turbo if you want
         messages=[
             {"role": "system", "content": "You are Vera, a thoughtful AI who tracks ideas, tasks, and agents for Bill."},
             {"role": "user", "content": user_input}
         ]
     )
-    reply = response.choices[0].message["content"]
+    reply = response.choices[0].message.content
     return {"response": reply}
