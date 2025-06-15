@@ -3,3 +3,4 @@ uvicorn[standard]
 jinja2
 python-dotenv
 openai>=1.14.0
+# Forced redeploy for OpenAI 1.14.0 upgrade
